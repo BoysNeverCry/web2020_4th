@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="http://apps.bdimg.com/libs/bootstrap/3.3.4/css/bootstrap.min.css">
+    <title>Address Book Page</title>
+    <style>
+        .center {
+            margin: auto;
+            width: 30%;
+            border: 3px solid #73AD21;
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+<div class="center">
+    <table border="1">
+
+        <thead>
+            <th>No.</th>
+            <th>Name</th>
+            <th>Phone</th>
+            <th>Email</th>
+            <th>Address</th>
+            <th>QQ</th>
+
+        </thead>
+
+        <tr th:each="record ,stat: ${session.allrecords} " >
+            <div th:if="${stat.index} le ${session.count}">
+                <td th:text="${stat.index} + 1"></td>
+                <td th:text="${record.name}"></td>
+                <td th:text="${record.phone}"></td>
+                <td th:text="${record.email}"></td>
+                <td th:text="${record.address}"></td>
+                <td th:text="${record.qq}"></td>
+            </div>
+        </tr>
+
+
+
+
+        <form name="userinfo" method="get" action="/addcontact">
+            <button type="submit" >Add</button>
+        </form>
+        <br>
+        <form method="post" action="deletecontact">
+            No. <input type="text" name="no" >
+            <button type="submit"  >Delete</button>
+        </form>
+        <br>
+        <form method="post" action="editcontact">
+            <button type="submit"  >Edit</button>
+        </form>
+
+    </table>
+
+</div>
+</body>
+</html>
