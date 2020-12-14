@@ -12,18 +12,49 @@
             padding: 10px;
         }
     </style>
+    <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js">
+    </script>
+    <script>
+        function checkPN()
+        {
+            var xmlhttp;
+            if (window.XMLHttpRequest)
+            {
+                // IE7+, Firefox, Chrome, Opera, Safari 浏览器执行代码
+                xmlhttp=new XMLHttpRequest();
+            }
+            else
+            {
+                // IE6, IE5 浏览器执行代码
+                xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+            }
+            xmlhttp.onreadystatechange=function()
+            {
+                if (xmlhttp.readyState==4 && xmlhttp.status==200)
+                {
+                    document.getElementById("myResult").innerHTML=xmlhttp.responseText;
+                }
+            }
+            xmlhttp.open("POST","/CheckPN",true);
+            xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+            xmlhttp.send("number="+document.getElementById("phonenumber").value);
+        }
+    </script>
 </head>
 <body>
 <form name="loginfo" method="post" action="addcontact">
 
     <div class="center">Name: <input type="text" name="name"><br></div>
-    <div class="center">Phone: <input type="text" name="phone"><br></div>
+    <div class="center">Phone: <input type="text" id="phonenumber" name="phone"><br></div>
     <div class="center">Email: <input type="text" name="email"><br></div>
     <div class="center">Address: <input type="text" name="address"><br></div>
     <div class="center">QQ: <input type="text" name="qq"><br></div>
     <div class="center"><input type="submit" value="Add"></div>
     <div class="center"><p1 >Please enter the info correctly above!</p1></div>
+
 </form>
+<button  type="button" onclick="checkPN()">Check phone number's existance</button>
+<div id="myResult"></div>
 
 </body>
 </html>
